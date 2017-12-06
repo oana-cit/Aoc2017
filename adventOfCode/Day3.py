@@ -11,7 +11,7 @@ def getNewCoord(step):
         return theirNumber - crtNumber
     return crtNumber - theirNumber
 
-def checkAndUpdate(stepX, stepY):
+def goSpiraling(stepX, stepY):
     global posX, posY, theirNumber, crtNumber
     
     if theirNumber < crtNumber + abs(stepX):
@@ -45,20 +45,20 @@ finished = False
 crtNumber = 1
 while not finished:
     
-    finished = checkAndUpdate(1, 0)
+    finished = goSpiraling(1, 0)
     print("crtNumber {} with posX: {}, posY: {}, distance: {}".format(crtNumber, posX, posY, abs(posX) + abs(posY)))
     crtStep += 1
     
-    finished = checkAndUpdate(0, crtStep)
+    finished = goSpiraling(0, crtStep)
     
     print("crtNumber {} with posX: {}, posY: {}, distance: {}".format(crtNumber, posX, posY, abs(posX) + abs(posY)))
     
     crtStep += 1
-    finished = checkAndUpdate(-crtStep, 0)
+    finished = goSpiraling(-crtStep, 0)
     print("crtNumber {} with posX: {}, posY: {}, distance: {}".format(crtNumber, posX, posY, abs(posX) + abs(posY)))
-    finished = checkAndUpdate(0, -crtStep)
+    finished = goSpiraling(0, -crtStep)
     print("crtNumber {} with posX: {}, posY: {}, distance: {}".format(crtNumber, posX, posY, abs(posX) + abs(posY)))
-    finished = checkAndUpdate(crtStep, 0)
+    finished = goSpiraling(crtStep, 0)
     print("crtNumber {} with posX: {}, posY: {}, distance: {}".format(crtNumber, posX, posY, abs(posX) + abs(posY)))
     
     lineMax.append(crtNumber)
