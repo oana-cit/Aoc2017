@@ -1,0 +1,50 @@
+'''
+Created on Dec 4, 2017
+
+@author: atip
+'''
+import numpy as np
+
+
+def hasBeenSeenBefore(newConfig):
+    global seenBefore
+    for crtPos, crtConfig in enumerate(seenBefore):
+        if np.all(np.asarray(newConfig) == np.asarray(crtConfig)):
+            print("First seen at: {}, now at: {} => {}".format(crtPos, len(seenBefore), len(seenBefore) - crtPos))
+            return True
+    return False
+
+def getNewConfig():
+    global seenBefore, maxBanks
+    newConfig = list(seenBefore[-1])
+    maxPos = np.argmax(newConfig)
+    redistribute = newConfig[maxPos]
+    newConfig[maxPos] = 0
+    while redistribute > 0:
+        redistribute -= 1
+        maxPos += 1
+        newConfig[maxPos % maxBanks] += 1
+    return newConfig
+
+print("Let us begin!")
+# theirInput = '''0  2  7  0'''
+theirInput = '''11    11    13    7    0    15    5    5    4    4    1    1    7    1    15    11'''
+
+seenBefore = list()
+firstConfig = list(map(int, theirInput.split()))
+seenBefore.append(firstConfig)
+maxBanks = len(firstConfig)
+
+print("seenBefore: {}".format(seenBefore))
+
+dejaVu = False
+totalIterations = 0
+while not dejaVu:
+    newConfig = getNewConfig()
+    dejaVu = hasBeenSeenBefore(newConfig)
+    seenBefore.append(newConfig)
+    totalIterations += 1
+    if totalIterations % 100 == 0:
+        print("[{}]".format(totalIterations))
+
+print("totalIterations: {}".format(totalIterations))
