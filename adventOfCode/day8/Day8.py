@@ -15,6 +15,7 @@ class Day8(object):
         self.inputFilename = inputFilename
         self.registers = {}
         self.unusualRegInstructions = None
+        self.absoluteMax = 0
 
     def readInput(self):
         with open(self.inputFilename) as f:
@@ -29,6 +30,8 @@ class Day8(object):
             self.registers[param1] += int(param2)
         else:
             self.registers[param1] -= int(param2)
+        if self.absoluteMax < self.registers[param1]:
+            self.absoluteMax = self.registers[param1]
 
     def parseInstr(self, instruction):
         tokens = instruction.split()
@@ -55,5 +58,6 @@ day8.executeInstructions()
 print("registers: {}".format(day8.registers))
 maxValuePos = max(day8.registers.items(), key=operator.itemgetter(1))[0]
 print("maxVal: {}".format(day8.registers[maxValuePos]))
+print("absolute max Val: {}".format(day8.absoluteMax))
 
 
