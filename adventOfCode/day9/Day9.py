@@ -22,9 +22,12 @@ with open(inputFileName) as f:
     allLines = f.readlines()
 allLines = [x.strip() for x in allLines]
 
-charStream = allLines[0]
-# print("File input: {}".format(charStream))
 
-stateMachine = StateMachine(Group())
-stateMachine.runAll(charStream)
-print("total score: {}".format(State.totalScore))
+for crtCharStream in allLines:
+    State.totalRemovedGarbage = 0
+    State.totalScore = 0
+    stateMachine = StateMachine(Group())
+    stateMachine.runAll(crtCharStream)
+#     print("Crt input: {}".format(crtCharStream))
+    print("total score: {}".format(State.totalScore))
+    print("total removed garbage: {}".format(State.totalRemovedGarbage))

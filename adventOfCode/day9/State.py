@@ -7,6 +7,7 @@ Created on Dec 11, 2017
 class State(object):
     
     totalScore = 0
+    totalRemovedGarbage = 0
     
     def __init__(self, level = 0):
         self.level = level
@@ -41,6 +42,7 @@ class Garbage(State):
             return Group(self.level)
         if crtChar == "!":
             return NopGarbage(self.level)
+        State.totalRemovedGarbage += 1
         return Garbage(self.level)
 
 
